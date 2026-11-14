@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MOD APK WORLD - Admin</title>
+<link rel="stylesheet" href="css/custom.css">
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial,sans-serif;padding:20px;background:#090710;color:white}
+.wrap{max-width:750px;margin:auto}
+.panel{background:#151020;padding:22px;border:1px solid #39264f;border-radius:14px;margin-bottom:20px}
+h1{color:#c084fc}
+input,textarea,select{width:100%;padding:13px;margin:8px 0 15px;background:#090710;color:white;border:1px solid #604080;border-radius:7px}
+button{padding:12px 18px;background:#a855f7;color:white;border:0;border-radius:7px;margin:5px;cursor:pointer}
+.app{background:#1d1530;padding:14px;margin:12px 0;border-radius:8px;overflow-wrap:anywhere}
+small{color:#aaa2b8}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>⚡ MOD APK WORLD</h1>
+<p>Admin Dashboard</p>
+
+<div class="panel">
+<h2>Add New App</h2>
+
+<form id="appForm">
+<label>App Name</label>
+<input id="name" required placeholder="Example: My App">
+
+<label>Version</label>
+<input id="version" placeholder="1.0">
+
+<label>Category</label>
+<select id="category">
+<option>Entertainment</option>
+<option>Tools</option>
+<option>Education</option>
+<option>Games</option>
+<option>Other</option>
+</select>
+
+<label>App Logo URL</label>
+<input id="image" type="url" placeholder="https://example.com/logo.png">
+
+<label>Description</label>
+<textarea id="description" required placeholder="App details"></textarea>
+
+<label>Authorized Download Link</label>
+<input id="download" type="url" required placeholder="https://example.com/app.apk">
+
+<button type="submit">+ Add App</button>
+</form>
+</div>
+
+<div class="panel">
+<h2>App Management</h2>
+<div id="appList">Loading apps...</div>
+<button onclick="exportData()">Export apps.json</button>
+<button onclick="document.getElementById('importFile').click()">Import apps.json</button>
+<input type="file" id="importFile" accept=".json,application/json" hidden>
+<p><small>Export ke baad apps.json ko project mein replace karke GitHub par push karna hoga.</small></p>
+</div>
+</div>
+
+<script>
+let apps=[];
+
+async function loadApps(){
+try{
+const response=await fetch('apps.json');
+const data=await response.json();
+apps=data.apps||[];
+}catch(e){
+apps=[];
+}
+render();
+}
+
+function render(){
+const list=document.getElementById('appList');
+list.innerHTML='';
+
+if(!apps.length){
+list.textContent='No apps added yet.';
+return;
+}
+
+apps.forEach((app,index)=>{
+const div=document.createElement('div');
+div.className='app';
+
+const title=document.createElement('strong');
+title.textContent=app.name+' - '+app.version;
+div.appendChild(title);
+
+const desc=document.createElement('p');
+desc.textContent=app.description;
+div.appendChild(desc);
+
+const btn=document.createElement('button');
+btn.textContent='Delete';
+btn.onclick=()=>{
+if(confirm('Delete '+app.name+'?')){
+apps.splice(index,1);
+render();
+}
+};
+div.appendChild(btn);
+list.appendChild(div);
+});
+}
+
+document.getElementById('appForm').addEventListener('submit',e=>{
+e.preventDefault();
+
+apps.push({
+name:document.getElementById('name').value.trim(),
+version:document.getElementById('version').value.trim(),
+category:document.getElementById('category').value,
+image:document.getElementById('image').value.trim(),
+description:document.getElementById('description').value.trim(),
+download:document.getElementById('download').value.trim()
+});
+
+e.target.reset();
+render();
+});
+
+function exportData(){
+const blob=new Blob(
+[JSON.stringify({apps},null,2)],
+{type:'application/json'}
+);
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;
+a.download='apps.json';
+a.click();
+URL.revokeObjectURL(url);
+}
+
+document.getElementById('importFile').addEventListener('change',async e=>{
+const file=e.target.files[0];
+if(!file)return;
+try{
+const data=JSON.parse(await file.text());
+if(!Array.isArray(data.apps))throw new Error('Invalid format');
+apps=data.apps;
+render();
+alert('Apps imported successfully!');
+}catch(error){
+alert('Invalid apps.json file');
+}
+e.target.value='';
+});
+
+loadApps();
+</script>
+</body>
+</html>

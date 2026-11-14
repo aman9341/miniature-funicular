@@ -1,0 +1,98 @@
+/* MOD APK WORLD - Premium Dark Purple Theme */
+
+:root {
+    --bg-main: #090710;
+    --bg-card: #151020;
+    --bg-secondary: #1d1530;
+    --purple: #a855f7;
+    --purple-light: #c084fc;
+    --text-main: #ffffff;
+    --text-muted: #aaa2b8;
+}
+
+body.skin-orange {
+    background: var(--bg-main);
+    color: var(--text-main);
+}
+
+body.skin-orange a {
+    color: var(--purple-light);
+}
+
+body.skin-orange a:hover {
+    color: #ffffff;
+}
+
+body.skin-orange .primary,
+body.skin-orange .menu {
+    background: #100b19;
+}
+
+body.skin-orange .firstbar,
+body.skin-orange .footer {
+    background: #100b19;
+}
+
+body.skin-orange .form-control {
+    background: var(--bg-card);
+    border: 1px solid #39264f;
+    color: #fff;
+}
+
+body.skin-orange .form-control::placeholder {
+    color: var(--text-muted);
+}
+
+body.skin-orange .btn-primary {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: #fff;
+}
+
+body.skin-orange .btn-primary:hover {
+    background: #7e22ce;
+    border-color: #7e22ce;
+}
+
+body.skin-orange .nav-list li a,
+body.skin-orange .brand a {
+    color: #fff;
+}
+
+body.skin-orange .line > div {
+    background: var(--purple);
+    color: #fff;
+}
+
+body.skin-orange .featured,
+body.skin-orange .article {
+    border-color: #30213f;
+}
+
+body.skin-orange .category a {
+    color: var(--purple-light);
+}
+
+body.skin-orange .time,
+body.skin-orange .text-muted {
+    color: var(--text-muted);
+}
+
+body.skin-orange .pagination li.active a {
+    background: var(--purple);
+    border-color: var(--purple);
+}
+
+body.skin-orange .nav-icons a:hover {
+    color: var(--purple-light);
+}
+
+@media (max-width: 767px) {
+    body.skin-orange .container {
+        max-width: 100%;
+    }
+
+    body.skin-orange .nav-icons {
+        text-align: center;
+    }
+}
