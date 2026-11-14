@@ -4141,3 +4141,37 @@ blockquote {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+/* MOD APK WORLD - Telegram buttons on all screen sizes */
+@media screen and (max-width: 768px) {
+  header.primary .firstbar .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  header.primary .firstbar .row > div {
+    width: 100%;
+    float: none;
+  }
+
+  header.primary .firstbar .nav-icons {
+    display: flex !important;
+    float: none !important;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin: 15px auto !important;
+    padding: 0 !important;
+  }
+
+  header.primary .firstbar .nav-icons li {
+    display: block !important;
+    float: none !important;
+    margin: 0 !important;
+  }
+
+  header.primary .firstbar .nav-icons li a {
+    display: inline-flex;
+    align-items: center;
+  }
+}
